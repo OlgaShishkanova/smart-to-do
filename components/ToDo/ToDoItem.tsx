@@ -1,17 +1,24 @@
 import { useState } from "react";
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import Checkbox from "expo-checkbox";
 
-import { Text, View } from "@/components/Themed";
+import { View } from "@/components/Themed";
 import { ToDoItemType } from "@/types/toDoTypes";
 import { COLORS } from "@/constants/Colors";
+import { useToDoStore } from "@/store";
+import React from "react";
 
 interface Props {
   item: ToDoItemType;
 }
 
 const ToDoItem = ({ item }: Props) => {
+  const { editToDoItem } = useToDoStore((state) => state);
+  const [inputText, changeInputText] = useState(item.text);
   const [isChecked, setChecked] = useState(false);
+  const onEditFinished = () => {
+    editToDoItem(item.id, { text: inputText, editDate: new Date() });
+  };
   return (
     <View style={styles.section}>
       <Checkbox
@@ -20,7 +27,13 @@ const ToDoItem = ({ item }: Props) => {
         onValueChange={setChecked}
         color={isChecked ? COLORS.tertiary : undefined}
       />
-      <Text>{item.text}</Text>
+      <TextInput
+        multiline
+        onChangeText={(text) => changeInputText(text)}
+        onBlur={onEditFinished}
+        value={inputText}
+        style={{ padding: 10, width: "100%" }}
+      />
     </View>
   );
 };
@@ -42,4 +55,4 @@ const styles = StyleSheet.create({
     margin: 8,
   },
 });
-export default ToDoItem;
+export default React.memo(ToDoItem);

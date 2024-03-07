@@ -8,6 +8,7 @@ export interface ToDoItemType {
   text: string;
   status: ToDoStatus;
   createDate: Date;
+  editDate: Date;
   category?: string;
   deadLine?: string;
 }

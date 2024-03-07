@@ -12,18 +12,21 @@ import ToDoList from "@/components/ToDo/ToDoList";
 import { ToDoStatus } from "@/types/toDoTypes";
 
 const TabOneScreen = () => {
-  const { toDos, addToDoItem } = useToDoStore((state) => state);
+  const { addToDoItem } = useToDoStore((state) => state);
   const [toDoText, setToDoText] = useState("");
   const onSaveToDoText = () => {
-    const uniqId = uuidv4();
-    const createDate = new Date();
-    addToDoItem({
-      id: uniqId,
-      createDate,
-      text: toDoText,
-      status: ToDoStatus.Open,
-    });
-    setToDoText("");
+    if (toDoText) {
+      const uniqId = uuidv4();
+      const createDate = new Date();
+      addToDoItem({
+        id: uniqId,
+        createDate,
+        editDate: createDate,
+        text: toDoText,
+        status: ToDoStatus.Open,
+      });
+      setToDoText("");
+    }
   };
   return (
     <>

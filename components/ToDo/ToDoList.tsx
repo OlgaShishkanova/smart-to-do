@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
 import { Text, View } from "@/components/Themed";
@@ -6,8 +7,9 @@ import ToDoItem from "./ToDoItem";
 
 const ToDoList = () => {
   const { toDos } = useToDoStore((state) => state);
+  console.log({ toDos });
   return (
-    <View>
+    <View style={styles.wrapper}>
       <FlatList
         data={toDos}
         renderItem={({ item }) => <ToDoItem item={item} />}
@@ -17,9 +19,8 @@ const ToDoList = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
+  wrapper: {
+    marginTop: 15,
   },
 });
-export default ToDoList;
+export default React.memo(ToDoList);
