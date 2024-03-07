@@ -11,8 +11,8 @@ import { useToDoStore } from "@/store";
 import ToDoList from "@/components/ToDo/ToDoList";
 import { ToDoStatus } from "@/types/toDoTypes";
 
-const TabOneScreen = () => {
-  const { addToDoItem } = useToDoStore((state) => state);
+const OpenToDos = () => {
+  const { addToDoItem, toDos } = useToDoStore((state) => state);
   const [toDoText, setToDoText] = useState("");
   const onSaveToDoText = () => {
     if (toDoText) {
@@ -28,6 +28,7 @@ const TabOneScreen = () => {
       setToDoText("");
     }
   };
+  const openToDoItems = toDos.filter((i) => i.status === ToDoStatus.Open);
   return (
     <>
       <View style={styles.container}>
@@ -48,7 +49,7 @@ const TabOneScreen = () => {
             <FontAwesome size={22} color="white" name="arrow-right" />
           </TouchableOpacity>
         </View>
-        <ToDoList />
+        <ToDoList toDoItems={openToDoItems} />
       </View>
     </>
   );
@@ -98,4 +99,4 @@ const styles = StyleSheet.create({
     width: "80%",
   },
 });
-export default TabOneScreen;
+export default OpenToDos;

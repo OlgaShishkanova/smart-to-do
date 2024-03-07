@@ -1,29 +1,24 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+import { View } from "@/components/Themed";
+import { useToDoStore } from "@/store";
+import { ToDoStatus } from "@/types/toDoTypes";
+import ToDoList from "@/components/ToDo/ToDoList";
 
-export default function TabTwoScreen() {
+const DoneToDos = () => {
+  const { toDos } = useToDoStore((state) => state);
+  const doneToDoItems = toDos.filter((i) => i.status === ToDoStatus.Done);
   return (
     <View style={styles.container}>
-      <Text>Here will be done</Text>
+      <ToDoList toDoItems={doneToDoItems} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    padding: 15,
   },
 });
+export default DoneToDos;

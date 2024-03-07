@@ -1,17 +1,19 @@
 import React from "react";
 import { StyleSheet, FlatList } from "react-native";
 
-import { Text, View } from "@/components/Themed";
-import { useToDoStore } from "@/store";
+import { View } from "@/components/Themed";
 import ToDoItem from "./ToDoItem";
+import { ToDoItemType } from "@/types/toDoTypes";
 
-const ToDoList = () => {
-  const { toDos } = useToDoStore((state) => state);
-  console.log({ toDos });
+interface Props {
+  toDoItems: ToDoItemType[];
+}
+
+const ToDoList = ({ toDoItems }: Props) => {
   return (
     <View style={styles.wrapper}>
       <FlatList
-        data={toDos}
+        data={toDoItems}
         renderItem={({ item }) => <ToDoItem item={item} />}
       />
     </View>
