@@ -11,4 +11,5 @@ export interface ToDoItemType {
   editDate: Date;
   category?: string;
   deadLine?: string;
+  finishedDate?: Date;
 }

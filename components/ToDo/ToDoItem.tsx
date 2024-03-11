@@ -36,6 +36,7 @@ const ToDoItem = ({ item }: Props) => {
     setTimeout(() => {
       editToDoItem(item.id, {
         status: value ? ToDoStatus.Done : ToDoStatus.Open,
+        finishedDate: new Date(),
       });
     }, 1000);
   };
